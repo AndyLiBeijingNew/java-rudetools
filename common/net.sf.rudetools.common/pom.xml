@@ -6,14 +6,12 @@
 
 	<parent>
 		<groupId>net.sf.rudetools</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>net.sf.rudetools.pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../plugin/net.sf.rudetools.releng.parent</relativePath>
+		<relativePath>../../plugin/net.sf.rudetools.releng.pom</relativePath>
 	</parent>
 
-	<groupId>net.sf.rudetools</groupId>
 	<artifactId>net.sf.rudetools.common</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<version>1.0.0-SNAPSHOT</version>
 	<name>RudeTools Common: functions and shared libs</name>
 </project>

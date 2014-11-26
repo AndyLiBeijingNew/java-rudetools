@@ -5,13 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>net.sf.rudetools</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>net.sf.rudetools.pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../plugin/net.sf.rudetools.releng.parent</relativePath>
+		<relativePath>../../plugin/net.sf.rudetools.releng.pom</relativePath>
 	</parent>
-	<groupId>net.sf.rudetools</groupId>
 	<artifactId>net.sf.rudetools.releng.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
 	<name>RudeTools Releng: Feature</name>
-	<version>1.0.0-SNAPSHOT</version>
 </project>

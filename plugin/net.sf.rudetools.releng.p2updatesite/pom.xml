@@ -6,15 +6,20 @@
 
 	<parent>
 		<groupId>net.sf.rudetools</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>net.sf.rudetools.pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../plugin/net.sf.rudetools.releng.parent</relativePath>
+		<relativePath>../../plugin/net.sf.rudetools.releng.pom</relativePath>
 	</parent>
 
-	<groupId>net.sf.rudetools</groupId>
 	<artifactId>net.sf.rudetools.releng.p2updatesite</artifactId>
 	<packaging>eclipse-repository</packaging>
 	<name>RudeTools Releng: P2 Repository</name>
-	<version>1.0.0-SNAPSHOT</version>
 
+	<repositories>
+		<repository>
+			<id>eclipse-luna</id>
+			<url>http://download.eclipse.org/releases/luna/</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
 </project>

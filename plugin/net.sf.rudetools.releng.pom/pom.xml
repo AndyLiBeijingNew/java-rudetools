@@ -2,15 +2,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.rudetools</groupId>
-	<artifactId>parent</artifactId>
+	<artifactId>net.sf.rudetools.pom</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>RudeTools Releng: Plug-in Project</name>
 	<modules>
-		<module>../../plugin/net.sf.rudetools.releng.target</module>
 		<module>../../common/net.sf.rudetools.common</module>
+		<module>../../plugin/net.sf.rudetools.plugin.now.count</module>
+		<module>../../plugin/net.sf.rudetools.plugin.now.shell</module>
 		<module>../../plugin/net.sf.rudetools.releng.feature</module>
 		<module>../../plugin/net.sf.rudetools.releng.p2updatesite</module>
+		<module>../../plugin/net.sf.rudetools.releng.target</module>
 	</modules>
 
 	<properties>
@@ -18,7 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.target.java.version>1.7</project.build.target.java.version>
-		<junit-workspace>../../plugin/net.sf.rudetools.releng.parent/junit-workspace</junit-workspace>
+		<junit-workspace>../../plugin/net.sf.rudetools.releng.pom/junit-workspace</junit-workspace>
 
 		<!-- Sonar -->
 		<sonar.language>java</sonar.language>
@@ -28,7 +30,7 @@
 		<sonar.jacoco.reportPath>./target/jacoco.exec</sonar.jacoco.reportPath>
 		<sonar.surefire.reportsPath>./target/surefire-report</sonar.surefire.reportsPath>
 		<sonar.java.source>1.7</sonar.java.source>
-		<sonar.includedModules>net.sf.rudetools.common,net.sf.rudetools.plugin.now.count,net.sf.rudetools.ui</sonar.includedModules>
+		<sonar.includedModules>net.sf.rudetools.common,net.sf.rudetools.plugin.now.count,net.sf.rudetools.plugin.now.shell</sonar.includedModules>
 		<test-argline>-Xmx512m -XX:ReservedCodeCacheSize=256m</test-argline>
 	</properties>
 
@@ -59,7 +61,7 @@
 					<resolver>p2</resolver>
 					<target>
 						<artifact>
-							<groupId>com.teradata.pde</groupId>
+							<groupId>net.sf.rudetools</groupId>
 							<artifactId>net.sf.rudetools.releng.target</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
 							<classifier>juno</classifier>
@@ -134,7 +136,7 @@
 				<useUIThread.value>false</useUIThread.value>
 			</properties>
 			<modules>
-				<module>../../plugin/net.sf.rudetools.now.shell.tests</module>
+				<module>../../plugin/net.sf.rudetools.plugin.now.shell.tests</module>
 			</modules>
 		</profile>
 	</profiles>

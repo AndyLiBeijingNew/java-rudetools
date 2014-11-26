@@ -4,14 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>net.sf.rudetools</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>net.sf.rudetools.pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../plugin/net.sf.rudetools.releng.parent</relativePath>
+		<relativePath>../../plugin/net.sf.rudetools.releng.pom</relativePath>
 	</parent>
 
-	<groupId>net.sf.rudetools</groupId>
 	<artifactId>net.sf.rudetools.plugin.now.shell.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
 	<name>RudeTools Test  : Shell Now Tests</name>
-	<version>1.0.0-SNAPSHOT</version>
 </project>

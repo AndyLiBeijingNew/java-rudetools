@@ -3,14 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>net.sf.rudetools</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>net.sf.rudetools.pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../plugin/net.sf.rudetools.releng.parent</relativePath>
+		<relativePath>../../plugin/net.sf.rudetools.releng.pom</relativePath>
 	</parent>
 
-	<groupId>net.sf.rudetools</groupId>
 	<artifactId>net.sf.rudetools.releng.target</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>RudeTools Releng: Target Platform</name>
 
@@ -33,6 +31,13 @@
 									<file>juno.target</file>
 									<type>target</type>
 									<classifier>juno</classifier>
+								</artifact>
+							</artifacts>
+							<artifacts>
+								<artifact>
+									<file>luna.target</file>
+									<type>target</type>
+									<classifier>luna</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>
