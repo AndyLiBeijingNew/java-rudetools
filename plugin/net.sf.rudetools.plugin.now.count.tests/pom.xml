@@ -10,6 +10,20 @@
 	</parent>
 
 	<artifactId>net.sf.rudetools.plugin.now.count.tests</artifactId>
-	<packaging>eclipse-test-plugin</packaging>
 	<name>RudeTools Test  : Count Now Tests</name>
+	<packaging>eclipse-test-plugin</packaging>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<useUIHarness>true</useUIHarness>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
