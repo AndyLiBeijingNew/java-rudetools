@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="net.sf.rudetools.releng.feature"
-      label="Feature"
+      id="net.sf.rudetools.releng.feature.shellnow"
+      label="Shell Now"
       version="1.0.0.qualifier">
 
    <description url="http://rudetools.sourceforge.net/description">
@@ -21,10 +21,11 @@
    </requires>
 
    <plugin
-         id="net.sf.rudetools.plugin.now.count"
+         id="net.sf.rudetools.common"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="net.sf.rudetools.plugin.now.shell"

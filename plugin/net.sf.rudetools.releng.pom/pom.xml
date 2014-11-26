@@ -5,14 +5,15 @@
 	<artifactId>net.sf.rudetools.pom</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>RudeTools Releng: Plug-in Project</name>
+	<name>RudeTools Releng: Master Project</name>
 	<modules>
 		<module>../../common/net.sf.rudetools.common</module>
 		<module>../../plugin/net.sf.rudetools.plugin.now.count</module>
 		<module>../../plugin/net.sf.rudetools.plugin.now.shell</module>
-		<module>../../plugin/net.sf.rudetools.releng.feature</module>
-		<module>../../plugin/net.sf.rudetools.releng.p2updatesite</module>
+		<module>../../plugin/net.sf.rudetools.releng.feature.countnow</module>
+		<module>../../plugin/net.sf.rudetools.releng.feature.shellnow</module>
 		<module>../../plugin/net.sf.rudetools.releng.target</module>
+		<module>../../plugin/net.sf.rudetools.releng.p2updatesite</module>
 	</modules>
 
 	<properties>
@@ -64,7 +65,7 @@
 							<groupId>net.sf.rudetools</groupId>
 							<artifactId>net.sf.rudetools.releng.target</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
-							<classifier>juno</classifier>
+							<classifier>luna</classifier>
 						</artifact>
 					</target>
 					<environments>

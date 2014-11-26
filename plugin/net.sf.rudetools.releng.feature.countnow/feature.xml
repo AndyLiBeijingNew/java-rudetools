@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="net.sf.rudetools.releng.feature.countnow"
+      label="Count Now"
+      version="1.0.0.qualifier">
+
+   <description url="http://rudetools.sourceforge.net/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://rudetools.sourceforge.net/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://rudetools.sourceforge.net/license">
+      [Enter License Description here.]
+   </license>
+
+   <plugin
+         id="net.sf.rudetools.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.rudetools.plugin.now.count"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>

@@ -28,13 +28,6 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>juno.target</file>
-									<type>target</type>
-									<classifier>juno</classifier>
-								</artifact>
-							</artifacts>
-							<artifacts>
-								<artifact>
 									<file>luna.target</file>
 									<type>target</type>
 									<classifier>luna</classifier>

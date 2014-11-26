@@ -9,7 +9,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../../plugin/net.sf.rudetools.releng.pom</relativePath>
 	</parent>
-	<artifactId>net.sf.rudetools.releng.feature</artifactId>
+	<artifactId>net.sf.rudetools.releng.feature.countnow</artifactId>
 	<packaging>eclipse-feature</packaging>
-	<name>RudeTools Releng: Feature</name>
+	<name>RudeTools Releng: Count Now Feature</name>
 </project>
