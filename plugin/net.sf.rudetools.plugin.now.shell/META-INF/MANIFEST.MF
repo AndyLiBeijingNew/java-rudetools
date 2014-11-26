@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Shellnow
+Bundle-SymbolicName: net.sf.rudetools.plugin.now.shell
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.sf.rudetools.plugin.now.shell.ShellNow
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

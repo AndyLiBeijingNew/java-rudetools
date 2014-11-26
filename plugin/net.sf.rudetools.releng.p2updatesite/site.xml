@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/net.sf.rudetools.releng.feature_1.0.0.qualifier.jar" id="net.sf.rudetools.releng.feature" version="1.0.0.qualifier">
+      <category name="rudetools.now"/>
+   </feature>
+   <category-def name="rudetools.now" label="Now Tools"/>
+</site>
