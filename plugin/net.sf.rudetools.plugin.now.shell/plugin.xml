@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+     <extension
+         point="org.eclipse.ui.preferencePages">
+      <page   name="Shell Now"
+            class="net.sf.rudetools.plugin.now.shell.preferences.EasyShellPreferencePage"
+            id="net.sf.rudetools.plugin.now.shell.preferences.EasyShellPreferencePage">
+      </page>
+   </extension>
+   <extension point="org.eclipse.ui.commands">
+      <category
+            id="net.sf.rudetools.plugin.now.shell.command.category"
+            name="Shell Now">  
+      </category>
+      <command
+            categoryId="net.sf.rudetools.plugin.now.shell.command.category"
+            id="net.sf.rudetools.plugin.now.shell.command.OpenShell"
+            name="Shell Now Shell">
+      </command>
+      <command
+            categoryId="net.sf.rudetools.plugin.now.shell.command.category"
+            id="net.sf.rudetools.plugin.now.shell.command.OpenFolder"
+            name="Shell Now Folder">
+      </command>
+      <command
+            categoryId="net.sf.rudetools.plugin.now.shell.command.category"
+            id="net.sf.rudetools.plugin.now.shell.command.Copy"
+            name="Shell Now Copy">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=group.open">
+         <menu
+               id="net.sf.rudetools.plugin.now.shell.menu"
+               label="Shell Now">
+            <command
+                  commandId="net.sf.rudetools.plugin.now.shell.command.OpenShell"
+                  icon="icons/shell.png"
+                  label="Shell ..."
+                  style="push">
+            </command>
+            <command
+                  commandId="net.sf.rudetools.plugin.now.shell.command.OpenFolder"
+                  icon="icons/folder.png"
+                  label="Open ..."
+                  style="push">
+            </command>
+            <command
+                  commandId="net.sf.rudetools.plugin.now.shell.command.Copy"
+                  icon="icons/copy.gif"
+                  label="Copy Path"
+                  style="push">
+            </command>
+            <visibleWhen checkEnabled="false">
+               <with                     variable="activePart">
+                  <test
+                        forcePluginActivation="true"
+                        property="net.sf.rudetools.plugin.now.shell.EditorPropertyTester.hasResourceSelection">
+                  </test>
+               </with>
+            </visibleWhen>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="net.sf.rudetools.plugin.now.shell.command.EasyShellCommand"
+            commandId="net.sf.rudetools.plugin.now.shell.command.shellOpen">
+      </handler>
+      <handler
+            class="net.sf.rudetools.plugin.now.shell.command.EasyShellCommand"
+            commandId="net.sf.rudetools.plugin.now.shell.command.shellRun">
+      </handler>
+      <handler
+            class="net.sf.rudetools.plugin.now.shell.command.EasyShellCommand"
+            commandId="net.sf.rudetools.plugin.now.shell.command.shellExplore">
+      </handler>
+      <handler
+            class="net.sf.rudetools.plugin.now.shell.command.EasyShellCommand"
+            commandId="net.sf.rudetools.plugin.now.shell.command.copyPath">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="net.sf.rudetools.plugin.now.shell.EditorPropertyTester"
+            id="net.sf.rudetools.plugin.now.shell.EditorPropertyTester"
+            namespace="net.sf.rudetools.plugin.now.shell.EditorPropertyTester"
+            properties="hasResourceSelection"
+            type="org.eclipse.ui.IWorkbenchPart">
+      </propertyTester>
+   </extension>
+
+</plugin>

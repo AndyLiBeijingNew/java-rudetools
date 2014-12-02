@@ -13,5 +13,5 @@
 
 	<artifactId>net.sf.rudetools.common</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<name>RudeTools Common: functions and shared libs</name>
+	<name>RudeTools Common: Utility and Shared things</name>
 </project>
