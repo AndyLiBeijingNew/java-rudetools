@@ -10,4 +10,7 @@ Require-Bundle: org.slf4j.api;bundle-version="1.7.2",
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Eclipse-BuddyPolicy: registered
-Export-Package: net.sf.rudetools.common.tools.shell
+Export-Package: net.sf.rudetools.common.tools.shell,
+ net.sf.rudetools.common.tools.shell.command,
+ net.sf.rudetools.common.util,
+ net.sf.rudetools.common.util.logback
