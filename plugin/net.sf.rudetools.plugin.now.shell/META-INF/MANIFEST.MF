@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Shell Now
+Bundle-Name: Now Shell
 Bundle-SymbolicName: net.sf.rudetools.plugin.now.shell;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.sf.rudetools.plugin.now.shell.ShellNowPlugin

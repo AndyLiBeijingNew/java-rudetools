@@ -12,5 +12,5 @@
 
 	<artifactId>net.sf.rudetools.plugin.now.shell</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<name>RudeTools Plugin: Shell Now</name>
+	<name>RudeTools Plugin: Now Shell</name>
 </project>

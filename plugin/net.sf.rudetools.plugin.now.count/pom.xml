@@ -12,5 +12,5 @@
 
 	<artifactId>net.sf.rudetools.plugin.now.count</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<name>RudeTools Plugin: Count Now</name>
+	<name>RudeTools Plugin: Now Count</name>
 </project>
