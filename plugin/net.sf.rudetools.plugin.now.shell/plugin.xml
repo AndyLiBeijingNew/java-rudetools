@@ -22,6 +22,26 @@
             name="CopyPath">
       </command>
    </extension>
+   <extension point="org.eclipse.ui.bindings">
+      <key
+            commandId="net.sf.rudetools.plugin.now.shell.OpenTerminal"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="Ctrl+T"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+      <key
+            commandId="net.sf.rudetools.plugin.now.shell.OpenFolder"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="Ctrl+D"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" >
+      </key>
+      <key
+            commandId="net.sf.rudetools.plugin.now.shell.CopyPath"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="Ctrl+Shift+C"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" >
+      </key>      
+   </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution

@@ -3,10 +3,7 @@
  */
 package net.sf.rudetools.plugin.now.shell.command;
 
-import java.io.File;
 import java.util.Iterator;
-
-import net.sf.rudetools.plugin.now.shell.ShellNowPlugin;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -18,13 +15,12 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.internal.core.PackageFragmentRoot;
 import org.eclipse.jdt.internal.ui.packageview.ClassPathContainer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
@@ -35,8 +31,8 @@ public abstract class RudeCommand extends AbstractHandler {
 		IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
 
-		IWorkbenchPart activePart = workbenchPage.getActivePart();
-		ISelectionProvider selectionProvider = activePart.getSite().getSelectionProvider();
+		IWorkbenchPartSite activeSite = workbenchPage.getActivePart().getSite();
+		ISelectionProvider selectionProvider = activeSite.getSelectionProvider();
 
 		if (selectionProvider != null) {
 			ISelection selection = selectionProvider.getSelection();
@@ -49,19 +45,14 @@ public abstract class RudeCommand extends AbstractHandler {
 				}
 			}
 		}
-
 		return null;
 	}
 
 	void doExec(Object obj) {
-		System.out.println("Select Object:" + obj.toString());
-
 		IPath path;
 		if (obj instanceof IResource) {
 			IResource resource = (IResource) obj;
-			path = ShellNowPlugin.getWorkspacePath().append(resource.getFullPath());
-			doCommmand(path);
-
+			doCommmand(resource.getLocation());
 		} else if (obj instanceof IProject) {
 			IProject project = (IProject) obj;
 			path = project.getLocation();
@@ -73,11 +64,8 @@ public abstract class RudeCommand extends AbstractHandler {
 			doCommmand(path);
 		} else if (obj instanceof IJavaElement) {
 			IJavaElement javaElement = (IJavaElement) obj;
-			path = javaElement.getPath();
-			File file = path.toFile();
-			if (!file.exists()) {
-				path = ShellNowPlugin.getWorkspacePath().append(path);
-			}
+			IResource resource = javaElement.getResource();
+			path = resource.getLocation();
 			doCommmand(path);
 		} else if (obj instanceof ClassPathContainer) {
 			ClassPathContainer cpContainer = (ClassPathContainer) obj;
@@ -87,15 +75,6 @@ public abstract class RudeCommand extends AbstractHandler {
 				path = root.getPath().removeLastSegments(1);
 				doCommmand(path);
 			}
-
-		} else if (obj instanceof PackageFragmentRoot) {
-			PackageFragmentRoot root = (PackageFragmentRoot) obj;
-			path = root.getPath();
-			File file = path.toFile();
-			if (!file.exists()) {
-				path = ShellNowPlugin.getWorkspacePath().append(path);
-			}
-			doCommmand(path);
 		}
 	}
 

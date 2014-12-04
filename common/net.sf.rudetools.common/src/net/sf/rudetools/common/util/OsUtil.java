@@ -39,25 +39,25 @@ public final class OsUtil {
 	public static String getUserDir() {
 		return System.getProperty("user.dir");
 	}
-	
+
 	public static boolean isWin32() {
 		return Platform.WS_WIN32.equals(Platform.getWS());
 	}
-	
+
 	public static boolean isGtk() {
 		return Platform.WS_GTK.equals(Platform.getWS());
 	}
-	
+
 	public static boolean isCocoa() {
 		return Platform.WS_COCOA.equals(Platform.getWS());
 	}
-	
+
 	public static boolean isMotif() {
 		return Platform.WS_MOTIF.equals(Platform.getWS());
 	}
-	
+
 	public static boolean isCarbon() {
 		return Platform.WS_CARBON.equals(Platform.getWS());
 	}
-	
+
 }
