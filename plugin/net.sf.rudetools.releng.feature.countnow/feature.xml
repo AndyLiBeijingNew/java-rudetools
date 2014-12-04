@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="net.sf.rudetools.releng.feature.countnow"
-      label="Count Now"
+      label="Now Count"
       version="1.0.0.qualifier">
 
    <description url="http://rudetools.sourceforge.net/description">

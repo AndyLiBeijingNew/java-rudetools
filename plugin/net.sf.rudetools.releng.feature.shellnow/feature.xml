@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="net.sf.rudetools.releng.feature.shellnow"
-      label="Shell Now"
+      label="Now Shell"
       version="1.0.0.qualifier">
 
    <description url="http://rudetools.sourceforge.net/description">
