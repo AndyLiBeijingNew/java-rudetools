@@ -5,7 +5,7 @@
 	<artifactId>net.sf.rudetools.pom</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>RudeTools Releng: Master Project</name>
+	<name>RudeTools Releng: Pom Project</name>
 	<modules>
 		<module>../../common/net.sf.rudetools.common</module>
 		<module>../../plugin/net.sf.rudetools.plugin.now.count</module>

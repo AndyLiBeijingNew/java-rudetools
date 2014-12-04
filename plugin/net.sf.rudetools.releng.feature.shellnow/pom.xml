@@ -11,5 +11,5 @@
 	</parent>
 	<artifactId>net.sf.rudetools.releng.feature.shellnow</artifactId>
 	<packaging>eclipse-feature</packaging>
-	<name>RudeTools Releng: Shell Now Feature</name>
+	<name>RudeTools Releng: Now Shell Feature</name>
 </project>

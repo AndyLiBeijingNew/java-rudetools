@@ -11,5 +11,5 @@
 	</parent>
 	<artifactId>net.sf.rudetools.releng.feature.countnow</artifactId>
 	<packaging>eclipse-feature</packaging>
-	<name>RudeTools Releng: Count Now Feature</name>
+	<name>RudeTools Releng: Now Count Feature</name>
 </project>
