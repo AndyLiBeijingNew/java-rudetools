@@ -14,3 +14,5 @@ Export-Package: net.sf.rudetools.common.tools.shell,
  net.sf.rudetools.common.tools.shell.command,
  net.sf.rudetools.common.util,
  net.sf.rudetools.common.util.logback
+Bundle-ClassPath: .,
+ lib/mail.jar
