@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Common
 Bundle-SymbolicName: net.sf.rudetools.common
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.slf4j.api;bundle-version="1.7.2",
- ch.qos.logback.classic;bundle-version="1.0.7",
- ch.qos.logback.core;bundle-version="1.0.7",
- org.eclipse.core.runtime;bundle-version="3.10.0"
+Require-Bundle: org.slf4j.api,
+ ch.qos.logback.core,
+ ch.qos.logback.classic,
+ org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Eclipse-BuddyPolicy: registered
