@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<luna-repo.url>http://download.eclipse.org/releases/luna</luna-repo.url>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<project.build.target.java.version>1.7</project.build.target.java.version>
+		<project.build.target.java.version>1.5</project.build.target.java.version>
 	</properties>
 
 	<repositories>

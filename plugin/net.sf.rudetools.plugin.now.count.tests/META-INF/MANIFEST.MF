@@ -4,4 +4,4 @@ Bundle-Name: Tests
 Bundle-SymbolicName: net.sf.rudetools.plugin.now.count.tests
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: net.sf.rudetools.plugin.now.count;bundle-version="1.0.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

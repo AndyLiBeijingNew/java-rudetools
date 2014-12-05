@@ -101,19 +101,15 @@ public abstract class RudeCommand extends AbstractHandler {
 	}
 
 	void doCommmand(IPath path) {
-		switch (Platform.getWS()) {
-		case Platform.WS_WIN32:
+		String ws = Platform.getWS();
+		if (Platform.WS_WIN32.equals(ws)) {
 			doWin32Command(path);
-			break;
-		case Platform.WS_GTK:
+		} else if (Platform.WS_GTK.equals(ws)) {
 			doGtkCommand(path);
-			break;
-		case Platform.WS_MOTIF:
+		} else if (Platform.WS_MOTIF.equals(ws)) {
 			doMotifCommand(path);
-			break;
-		case Platform.WS_COCOA:
+		} else if (Platform.WS_COCOA.equals(ws)) {
 			doCocoaCommand(path);
-			break;
 		}
 	};
 

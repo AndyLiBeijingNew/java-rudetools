@@ -6,6 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.sf.rudetools.plugin.now.count.CountNow
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: AndyLiBeijing
