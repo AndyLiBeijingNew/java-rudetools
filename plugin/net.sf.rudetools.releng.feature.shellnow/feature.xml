@@ -16,10 +16,6 @@
       [Enter License Description here.]
    </license>
 
-   <requires>
-      <import plugin="net.sf.rudetools.common" version="1.0.0" match="greaterOrEqual"/>
-   </requires>
-
    <plugin
          id="net.sf.rudetools.plugin.now.shell"
          download-size="0"
