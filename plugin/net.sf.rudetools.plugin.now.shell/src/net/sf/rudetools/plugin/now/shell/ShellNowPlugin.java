@@ -11,9 +11,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-/**
- * The activator class controls the plug-in life cycle
- */
 public class ShellNowPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
@@ -21,12 +18,6 @@ public class ShellNowPlugin extends AbstractUIPlugin {
 
 	// The shared instance
 	private static ShellNowPlugin plugin;
-
-	/**
-	 * The constructor
-	 */
-	public ShellNowPlugin() {
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -54,11 +45,6 @@ public class ShellNowPlugin extends AbstractUIPlugin {
 		super.stop(context);
 	}
 
-	/**
-	 * Returns the shared instance
-	 *
-	 * @return the shared instance
-	 */
 	public static ShellNowPlugin getDefault() {
 		return plugin;
 	}

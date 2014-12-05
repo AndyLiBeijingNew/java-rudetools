@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-
    <extension point="org.eclipse.ui.commands">
       <category
             id="net.sf.rudetools.plugin.now.shell.command.category"
@@ -21,6 +20,93 @@
             id="net.sf.rudetools.plugin.now.shell.CopyPath"
             name="CopyPath">
       </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=group.open">
+         <command
+               commandId="net.sf.rudetools.plugin.now.shell.OpenTerminal"
+               icon="icons/terminal.png"
+               id="net.sf.rudetools.plugin.now.shell.OpenTerminal"
+               label="Now - Terminal"
+               style="push"
+               tooltip="Open a default terminal">
+                <visibleWhen checkEnabled="false">
+                       <with variable="activePart">
+                          <test forcePluginActivation="true"
+                            property="net.sf.rudetools.plugin.now.shell.MenuPropertyTester.isAvailable">
+                          </test>
+                       </with>
+                </visibleWhen>
+         </command>
+         <command
+               commandId="net.sf.rudetools.plugin.now.shell.OpenFolder"
+               icon="icons/folder.png"
+               id="net.sf.rudetools.plugin.now.shell.OpenFolder"
+               label="Now - Folder"
+               style="push"
+               tooltip="Open default navigator from file system">
+                <visibleWhen checkEnabled="false">
+                       <with variable="activePart">
+                          <test forcePluginActivation="true"
+                            property="net.sf.rudetools.plugin.now.shell.MenuPropertyTester.isAvailable">
+                          </test>
+                       </with>
+                </visibleWhen>
+         </command>
+         <command
+               commandId="net.sf.rudetools.plugin.now.shell.CopyPath"
+               icon="icons/copy.gif"
+               id="net.sf.rudetools.plugin.now.shell.CopyPath"
+               label="Now - Copy Path"
+               style="push"
+               tooltip="Copy the selected element&apos;s path">
+                <visibleWhen checkEnabled="false">
+                       <with variable="activePart">
+                          <test forcePluginActivation="true"
+                            property="net.sf.rudetools.plugin.now.shell.MenuPropertyTester.isAvailable">
+                          </test>
+                       </with>
+                </visibleWhen>         </command>
+         <separator name="net.sf.rudetools.plugin.now.shell.separator4now"/>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="net.sf.rudetools.plugin.now.shell.command.OpenTerminalCommand"
+            commandId="net.sf.rudetools.plugin.now.shell.OpenTerminal">
+            <enabledWhen>
+                <with variable="activePart">
+                    <test forcePluginActivation="true"
+                        property="net.sf.rudetools.plugin.now.shell.MenuPropertyTester.isAvailable">
+                    </test>
+                </with>
+            </enabledWhen>
+      </handler>
+      <handler
+            class="net.sf.rudetools.plugin.now.shell.command.OpenFolderCommand"
+            commandId="net.sf.rudetools.plugin.now.shell.OpenFolder">
+            <enabledWhen>
+                <with variable="activePart">
+                    <test forcePluginActivation="true"
+                        property="net.sf.rudetools.plugin.now.shell.MenuPropertyTester.isAvailable">
+                    </test>
+                </with>
+            </enabledWhen>
+      </handler>
+      <handler
+            class="net.sf.rudetools.plugin.now.shell.command.CopyCommand"
+            commandId="net.sf.rudetools.plugin.now.shell.CopyPath">
+            <enabledWhen>
+                <with variable="activePart">
+                    <test forcePluginActivation="true"
+                        property="net.sf.rudetools.plugin.now.shell.MenuPropertyTester.isAvailable">
+                    </test>
+                </with>
+            </enabledWhen>
+      </handler>
    </extension>
    <extension point="org.eclipse.ui.bindings">
       <key
@@ -43,52 +129,13 @@
       </key>      
    </extension>
    <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            locationURI="popup:org.eclipse.ui.popup.any?after=group.open">
-         <command
-               commandId="net.sf.rudetools.plugin.now.shell.OpenTerminal"
-               icon="icons/terminal.png"
-               id="net.sf.rudetools.plugin.now.shell.OpenTerminal"
-               label="Now - Terminal"
-               style="push"
-               tooltip="Open a default terminal">
-         </command>
-         <command
-               commandId="net.sf.rudetools.plugin.now.shell.OpenFolder"
-               icon="icons/folder.png"
-               id="net.sf.rudetools.plugin.now.shell.OpenFolder"
-               label="Now - Folder"
-               style="push"
-               tooltip="Open default navigator from file system">
-         </command>
-         <command
-               commandId="net.sf.rudetools.plugin.now.shell.CopyPath"
-               icon="icons/copy.gif"
-               id="net.sf.rudetools.plugin.now.shell.CopyPath"
-               label="Now - Copy Path"
-               style="push"
-               tooltip="Copy the selected element&apos;s path">
-         </command>
-         <separator
-               name="net.sf.rudetools.plugin.now.shell.separator4now"
-               visible="true">
-         </separator>
-      </menuContribution>
-   </extension>
-   <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            class="net.sf.rudetools.plugin.now.shell.command.OpenTerminalCommand"
-            commandId="net.sf.rudetools.plugin.now.shell.OpenTerminal">
-      </handler>
-      <handler
-            class="net.sf.rudetools.plugin.now.shell.command.OpenFolderCommand"
-            commandId="net.sf.rudetools.plugin.now.shell.OpenFolder">
-      </handler>
-      <handler
-            class="net.sf.rudetools.plugin.now.shell.command.CopyCommand"
-            commandId="net.sf.rudetools.plugin.now.shell.CopyPath">
-      </handler>
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="net.sf.rudetools.plugin.now.shell.MenuPropertyTester"
+            id="net.sf.rudetools.plugin.now.shell.MenuPropertyTester"
+            namespace="net.sf.rudetools.plugin.now.shell.MenuPropertyTester"
+            properties="isAvailable"
+            type="org.eclipse.ui.IWorkbenchPart">
+      </propertyTester>
    </extension>
 </plugin>

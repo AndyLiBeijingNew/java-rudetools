@@ -5,6 +5,8 @@ package net.sf.rudetools.plugin.now.shell.command;
 
 import java.util.Iterator;
 
+import net.sf.rudetools.plugin.now.shell.ShellNowPlugin;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -19,7 +21,12 @@ import org.eclipse.jdt.internal.ui.packageview.ClassPathContainer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IPathEditorInput;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -30,18 +37,27 @@ public abstract class RudeCommand extends AbstractHandler {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
+		IWorkbenchPart activePart = workbenchPage.getActivePart();
 
-		IWorkbenchPartSite activeSite = workbenchPage.getActivePart().getSite();
-		ISelectionProvider selectionProvider = activeSite.getSelectionProvider();
+		if (activePart instanceof IEditorPart) {
+			IEditorPart editorPart = (IEditorPart) activePart;
+			IEditorInput input = editorPart.getEditorInput();
+			doExec(input);
 
-		if (selectionProvider != null) {
-			ISelection selection = selectionProvider.getSelection();
-			if (selection instanceof StructuredSelection) {
-				StructuredSelection selections = (StructuredSelection) selection;
-				Iterator<?> iterator = selections.iterator();
-				while (iterator.hasNext()) {
-					Object element = iterator.next();
-					doExec(element);
+		} else if (activePart instanceof IViewPart) {
+			IViewPart viewPart = (IViewPart) activePart;
+			IWorkbenchPartSite activeSite = viewPart.getSite();
+			ISelectionProvider selectionProvider = activeSite.getSelectionProvider();
+
+			if (selectionProvider != null) {
+				ISelection selection = selectionProvider.getSelection();
+				if (selection instanceof StructuredSelection) {
+					StructuredSelection selections = (StructuredSelection) selection;
+					Iterator<?> iterator = selections.iterator();
+					while (iterator.hasNext()) {
+						Object element = iterator.next();
+						doExec(element);
+					}
 				}
 			}
 		}
@@ -75,6 +91,12 @@ public abstract class RudeCommand extends AbstractHandler {
 				path = root.getPath().removeLastSegments(1);
 				doCommmand(path);
 			}
+		} else if (obj instanceof IPathEditorInput) {
+			IPathEditorInput pathEditor = (IPathEditorInput) obj;
+			path = pathEditor.getPath();
+			doCommmand(path);
+		} else {
+			ShellNowPlugin.logError("Bad Shell Object entered - " + obj);
 		}
 	}
 
@@ -93,7 +115,6 @@ public abstract class RudeCommand extends AbstractHandler {
 			doCocoaCommand(path);
 			break;
 		}
-
 	};
 
 	abstract void doWin32Command(IPath path);

@@ -3,9 +3,6 @@
    <feature url="features/net.sf.rudetools.releng.feature.shellnow_1.0.0.qualifier.jar" id="net.sf.rudetools.releng.feature.shellnow" version="1.0.0.qualifier">
       <category name="net.sf.rudetools.plugin.now"/>
    </feature>
-   <feature url="features/net.sf.rudetools.releng.feature.countnow_1.0.0.qualifier.jar" id="net.sf.rudetools.releng.feature.countnow" version="1.0.0.qualifier">
-      <category name="net.sf.rudetools.plugin.now"/>
-   </feature>
    <category-def name="net.sf.rudetools.plugin.now" label="Now Tools">
       <description>
          There are some handy tools for now. 
