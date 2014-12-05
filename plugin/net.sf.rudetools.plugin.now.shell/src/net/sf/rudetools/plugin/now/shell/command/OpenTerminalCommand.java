@@ -28,7 +28,7 @@ public class OpenTerminalCommand extends RudeCommand {
 				basePath = path.toOSString();
 			}
 
-			String args[] = { "cmd.exe", "/C", "start", "/D", "\"" + basePath + "\"", "cmd.exe" };
+			String args[] = { "cmd.exe", "/C", "start", "/D", basePath, "cmd.exe" };
 			try {
 				Runtime.getRuntime().exec(args);
 			} catch (IOException ex) {
@@ -55,7 +55,7 @@ public class OpenTerminalCommand extends RudeCommand {
 				basePath = path.toOSString();
 			}
 
-			String args[] = { "gnome-terminal", "--working-directory=\"" + basePath + "\"" };
+			String args[] = { "gnome-terminal", "--working-directory", basePath};
 			try {
 				Runtime.getRuntime().exec(args);
 			} catch (IOException ex) {
