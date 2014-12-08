@@ -7,10 +7,10 @@
 	<packaging>pom</packaging>
 	<name>RudeTools Releng: Pom Project</name>
 	<modules>
-		<!-- <module>../../common/net.sf.rudetools.common</module> -->
+		<!-- <module>../../common/net.sf.rudetools.common</module> 
 		<module>../../plugin/net.sf.rudetools.plugin.now.count</module>
-		<module>../../plugin/net.sf.rudetools.plugin.now.shell</module>
-		<module>../../plugin/net.sf.rudetools.releng.feature.countnow</module>
+		<module>../../plugin/net.sf.rudetools.releng.feature.countnow</module>-->
+        <module>../../plugin/net.sf.rudetools.plugin.now.shell</module>
 		<module>../../plugin/net.sf.rudetools.releng.feature.shellnow</module>
 		<module>../../plugin/net.sf.rudetools.releng.target</module>
 		<module>../../plugin/net.sf.rudetools.releng.p2updatesite</module>

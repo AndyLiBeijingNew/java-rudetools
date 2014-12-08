@@ -12,4 +12,13 @@
 	<artifactId>net.sf.rudetools.releng.feature.shellnow</artifactId>
 	<packaging>eclipse-feature</packaging>
 	<name>RudeTools Releng: Now Shell Feature</name>
+	<description>      The Now tools is a simple and easy tool of an Eclipse plugin. It could be used in Eclipse with handy functions.
+It has the following functions:
+1. Open Terminal - Press [Ctrl + T] to open a terminal window in current position.
+2. Open Folder - Press [Ctrl + D] to open the file explorer in current position.
+3. Copy Path - Copy current full path with [Ctrl + Shift + C] for current selection. 
+4. Windows, Linux / gtk, Mac OS X are supported.
+Any question, issue, and enhancement is welcome.
+Thanks,
+AndyLiBeijing@hotmail.com</description>
 </project>
