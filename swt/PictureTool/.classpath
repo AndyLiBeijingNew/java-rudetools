@@ -16,5 +16,8 @@
 	<classpathentry kind="lib" path="D:/00_gsta/Dev_M3/eclipse-rcp-juno-SR2-win32-x86_64/workspace/.metadata/.plugins/org.eclipse.pde.core/.bundle_pool/plugins/org.eclipse.ui.forms_3.5.200.v20120705-114351.jar" sourcepath="D:/00_gsta/Dev_M3/eclipse-rcp-juno-SR2-win32-x86_64/workspace/.metadata/.plugins/org.eclipse.pde.core/.bundle_pool/plugins/org.eclipse.ui.forms.source_3.5.200.v20120705-114351.jar"/>
 	<classpathentry kind="lib" path="lib/metadata-extractor-2.6.4.jar"/>
 	<classpathentry kind="lib" path="lib/xmpcore.jar"/>
+	<classpathentry kind="lib" path="lib/logback-classic-1.0.9.jar"/>
+	<classpathentry kind="lib" path="lib/logback-core-1.0.9.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

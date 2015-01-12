@@ -38,20 +38,23 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.metadata.Metadata;
-import com.drew.metadata.exif.ExifIFD0Directory;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 
 public class PicTool extends ApplicationWindow {
-    private static final String _0000 = "0000";
+
+    private static final Logger LOG = LoggerFactory.getLogger(PicTool.class);
+
     private Text txtSrcDir;
     private Text txtLog;
     private ProgressBar progressBar;
     private Text txtTgtDir;
 
-    protected Map<File, Integer> fileCount = new HashMap<File, Integer>();
+    protected Map<String, Integer> fileCount = new HashMap<String, Integer>();
     private Label lblFileDone;
     private Label lblFileCount;
     private Label lblSizeDone;
@@ -110,7 +113,15 @@ public class PicTool extends ApplicationWindow {
                                 File file = new File(filename);
                                 handleJpgFiles(file);
                             }
-                            btnStart.setEnabled(true);
+                            LOG.info("Completed Job !!!");
+
+                            Display.getDefault().syncExec(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    btnStart.setEnabled(true);
+                                }
+                            });
                         }
                     });
                     picThread.setDaemon(true);
@@ -282,7 +293,9 @@ public class PicTool extends ApplicationWindow {
 
                             File singleFile = new File(files[0]);
                             if (singleFile.isFile()) {
-                                printJpgFile(singleFile);
+                                Date date = getEXIFDate(singleFile);
+                                printJpgFile(singleFile, date);
+                                txtLog.setText(" S i n g l e   F i l e   !!!!!!");
                             }
                         }
                     }
@@ -328,9 +341,9 @@ public class PicTool extends ApplicationWindow {
             @Override
             public void drop(DropTargetEvent event) {
                 if (FileTransfer.getInstance().isSupportedType(event.currentDataType)) {
-                    String[] files = (String[]) event.data;
-                    if (files != null && files.length > 0) {
-                        String filename = files[0];
+                    String[] fileNames = (String[]) event.data;
+                    if (fileNames != null && fileNames.length > 0) {
+                        String filename = fileNames[0];
                         File file = new File(filename);
                         if (file != null && file.isDirectory()) {
                             File targetFile = new File(file.getAbsolutePath() + File.separator
@@ -338,9 +351,6 @@ public class PicTool extends ApplicationWindow {
                             if (targetFile.mkdir()) {
                                 targetDirStr = targetFile.getAbsolutePath();
                                 txtTgtDir.setText(targetDirStr);
-
-                                File unknownFile = new File(targetFile, _0000);
-                                unknownFile.mkdir();
                             }
                         }
                     }
@@ -464,73 +474,79 @@ public class PicTool extends ApplicationWindow {
         return new Point(600, 400);
     }
 
-    private void printJpgFile(final File file) {
-        final Date date = getEXIFDate(file);
+    private void printJpgFile(final File file, final Date date) {
+        LOG.info("\tFile:\t{}", file.getAbsolutePath());
+        LOG.info("\t\tEXIFDate:\t{}\n", date);
         if (date != null && file.isFile()) {
-            // txtLog.append(">>>>>>>> File:\t" + file);
-            // txtLog.append("\nDir  name:\t" + getDateStr(date));
-            // txtLog.append("\nFile name:\t" + getDateTimeStr(date));
-            // txtLog.append("\n\n");
             Display.getDefault().asyncExec(new Runnable() {
 
                 @Override
                 public void run() {
                     txtLog.setText(">>>>>>>> File:\t" + file);
-                    txtLog.append("\nDir  name:\t" + getDateStr(date));
-                    txtLog.append("\nFile name:\t" + getDateTimeStr(date));
+                    txtLog.append("\nDir  Name:\t" + getDateStr(date));
+                    txtLog.append("\nFile Name:\t" + getDateTimeStr(date));
                     txtLog.append("\n\n");
-
-                    // txtLog.setText(file.getAbsolutePath());
                 }
             });
-
         }
     }
 
+    /**
+     * Nested handle the files in the directory.
+     * 
+     * @param file
+     */
     private void handleJpgFiles(File file) {
 
-        if (file == null || targetDirStr == null)
+        if (file == null || targetDirStr == null || "Thumbs.db".equalsIgnoreCase(file.getName())) {
             return;
+        }
 
+        // Deep first loop
         if (file.isDirectory()) {
+            LOG.info("\nDir:\t{}\n", file.getAbsolutePath());
             for (File subFile : file.listFiles()) {
                 handleJpgFiles(subFile);
             }
         }
 
         if (file.isFile()) {
-            printJpgFile(file);
+
             Date date = getEXIFDate(file);
+            printJpgFile(file, date);
+
+            File targetFolder;
+            String targetFileName;
             if (date != null) {
+                // the pictures has own EXIFData
                 String dateStr = getDateStr(date);
                 String dateTimeStr = getDateTimeStr(date);
 
                 // step 1. create target folder
-                File targetFolder = new File(targetDirStr + File.separator + dateStr);
-                int fileNo;
+                targetFolder = new File(targetDirStr + File.separator + dateStr);
+                int fileNo = 1;
                 if (targetFolder.exists()) {
-                    fileNo = fileCount.get(targetFolder);
+                    fileNo = fileCount.get(dateStr);
                 } else {
+                    // fileNo = 1;
                     targetFolder.mkdir();
-                    fileNo = 1;
-                    fileCount.put(targetFolder, 1);
                 }
-                fileCount.put(targetFolder, fileNo + 1);
+                fileCount.put(dateStr, fileNo + 1);
 
                 // step 2. get the new file name
                 String extNo = String.format("%03d", fileNo);
-                String newFileName = dateTimeStr + "." + extNo + ".jpg";
-
-                // step 3. copy the file to the target
-                copyFile(file, targetFolder, newFileName);
+                targetFileName = dateTimeStr + "." + extNo + ".jpg";
             } else {
-                // handle unknown picture
-                String fileName = file.getName();
-
-                if (fileName.toLowerCase().endsWith(".jpg")) {
-                    copyFile(file, new File(targetDirStr, _0000), fileName);
+                // handle unknown pictures or mov files
+                targetFileName = file.getName();
+                String parentName = file.getParentFile().getName();
+                targetFolder = new File(targetDirStr, parentName);
+                if (!targetFolder.exists()) {
+                    targetFolder.mkdirs();
                 }
             }
+            // step 3. copy the file to the target
+            copyFile(file, targetFolder, targetFileName);
         }
     }
 
