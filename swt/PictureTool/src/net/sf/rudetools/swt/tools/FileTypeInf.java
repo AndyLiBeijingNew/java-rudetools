@@ -77,6 +77,6 @@ public class FileTypeInf {
     }
 
     protected String format(long num) {
-        return String.format("%,9l", num);
+        return String.format("%,9d", num);
     }
 }
