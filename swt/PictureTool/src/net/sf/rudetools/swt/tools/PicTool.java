@@ -2,7 +2,6 @@ package net.sf.rudetools.swt.tools;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
@@ -40,7 +39,6 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -70,8 +68,10 @@ public class PicTool extends ApplicationWindow {
 
     protected Thread workerThread;
     protected boolean isWorking = false;
-
-    /* (non-Javadoc)
+    protected long sizeSum = 0;
+    
+    /*
+     * (non-Javadoc)
      * @see org.eclipse.jface.window.ApplicationWindow#close()
      */
     @Override
@@ -130,7 +130,7 @@ public class PicTool extends ApplicationWindow {
      */
     public PicTool() {
         super(null);
-        setShellStyle(SWT.CLOSE);
+        setShellStyle(SWT.CLOSE | SWT.RESIZE);
         // createActions();
         // addToolBar(SWT.FLAT | SWT.WRAP);
         // addMenuBar();
@@ -335,6 +335,8 @@ public class PicTool extends ApplicationWindow {
     private void createProgressRow(Composite parent) {
         progressBar = new ProgressBar(parent, SWT.NONE);
         progressBar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+        progressBar.setMinimum(0);
+        progressBar.setMinimum(100);
     }
 
     private void createSourceRow(final Composite parent) {
@@ -428,10 +430,8 @@ public class PicTool extends ApplicationWindow {
                         initFileInfTable(sourceDir);
 
                         if (sourceDir.isFile()) {
-                            Date date;
                             try {
-                                date = getEXIFDate(sourceDir);
-                                printJpgFile(sourceDir, date);
+                                Date date = getEXIFDate(sourceDir);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -475,6 +475,7 @@ public class PicTool extends ApplicationWindow {
                             @Override
                             public void run() {
                                 viewer.refresh();
+                                progressBar.setSelection(sizeCount.getPercent());
                             }
                         });
                     } catch (InterruptedException e) {
@@ -522,21 +523,6 @@ public class PicTool extends ApplicationWindow {
                 });
             }
         }).start();
-
-        // refreshThread = new Thread(new Runnable() {
-        //
-        // @Override
-        // public void run() {
-        // while (isRefreshing()) {
-        // try {
-        // Thread.sleep(getRefreshInterval() * 1000);
-        // } catch (InterruptedException e) {
-        // }
-        // viewer.refresh();
-        // }
-        // }
-        // });
-        // refreshThread.start();
     }
 
     private void createDndSupportForTarget() {
@@ -686,21 +672,20 @@ public class PicTool extends ApplicationWindow {
         return new Point(600, 480);
     }
 
-    private void printJpgFile(final File file, final Date date) {
-        LOG.info("\tFile:\t{}", file.getAbsolutePath());
-        LOG.info("\t\tEXIFDate:\t{}\n", date);
-        if (date != null && file.isFile()) {
-            Display.getDefault().asyncExec(new Runnable() {
+    private void printWorkingFile(final File srcFile, final File destDir, final String newFileName) {
+        LOG.info("Source File:\t{}", srcFile.getAbsolutePath());
+        LOG.info("\n         ->:\t{}\\\\{}", destDir.getAbsolutePath(), newFileName);
+        LOG.info("\n size:\t{}", srcFile.length());
+        
+        Display.getDefault().asyncExec(new Runnable() {
 
-                @Override
-                public void run() {
-                    textLog.setText(">>>>>>>> File:\t" + file);
-                    textLog.append("\nDir  Name:\t" + getDateStr(date));
-                    textLog.append("\nFile Name:\t" + getDateTimeStr(date));
-                    textLog.append("\n\n");
-                }
-            });
-        }
+            @Override
+            public void run() {
+                textLog.setText("Source File:\t" + srcFile.getAbsolutePath());
+                textLog.append("\n         ->:\t" + destDir.getAbsolutePath() + "\\\\" + newFileName);
+                textLog.append("\n       size:\t " + String.format("%,d K", (int)(srcFile.length() / 1024)));
+            }
+        });
     }
 
     /**
@@ -730,7 +715,6 @@ public class PicTool extends ApplicationWindow {
             String targetFileName;
             if (date != null) {
                 // the pictures has own EXIFData
-                printJpgFile(file, date);
                 String dateStr = getDateStr(date);
                 String dateTimeStr = getDateTimeStr(date);
 
@@ -768,6 +752,7 @@ public class PicTool extends ApplicationWindow {
 
     protected boolean copyFile(File srcFile, File destDir, String newFileName) {
         boolean isDone = false;
+        printWorkingFile(srcFile, destDir, newFileName);
         try {
             FileInputStream fis = new FileInputStream(srcFile);
             FileChannel fcin = fis.getChannel();
@@ -820,7 +805,7 @@ public class PicTool extends ApplicationWindow {
 
     protected synchronized void addCountFile(File file) {
         String ext = getFileExtName(file);
-        if (ext != null && ext.length() > 0) {
+        if (ext != null) {
             fileCount.addAll(ext, 1L);
             sizeCount.addAll(ext, file.length());
         }

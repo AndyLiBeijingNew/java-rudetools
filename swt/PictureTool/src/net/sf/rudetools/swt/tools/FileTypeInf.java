@@ -18,6 +18,23 @@ public class FileTypeInf {
     private List<Long> numAll = new ArrayList<Long>();
     private List<Long> numDone = new ArrayList<Long>();
 
+    /**
+     * @return the sumAll
+     */
+    protected synchronized long getSumAll() {
+        return sumAll;
+    }
+
+    /**
+     * @return the sumDone
+     */
+    protected synchronized long getSumDone() {
+        return sumDone;
+    }
+
+    private long sumAll = 0;
+    private long sumDone = 0;
+
     public FileTypeInf(String infType) {
         this.infType = infType;
     }
@@ -32,6 +49,8 @@ public class FileTypeInf {
             numAll.add(newAll);
             numDone.add(0L);
         }
+
+        sumAll += newAll;
     }
 
     public synchronized void addDone(String fileType, Long newDone) {
@@ -42,6 +61,7 @@ public class FileTypeInf {
         } else {
             LOG.error("XXXXXXXXXXXXXXX new done type:\t{} with done:{}", fileType, newDone);
         }
+        sumDone += newDone;
     }
 
     public synchronized List<String> getFileTypeList() {
@@ -74,15 +94,27 @@ public class FileTypeInf {
         typeList.clear();
         numAll.clear();
         numDone.clear();
+        sumAll = 0;
+        sumDone = 0;
     }
 
     public synchronized void clearDone() {
         for (int i = 0; i < numDone.size(); i++) {
             numDone.set(i, 0L);
         }
+        sumDone = 0;
     }
 
     protected String format(long num) {
         return String.format("%,d", num);
+    }
+
+    public int getPercent() {
+        if (sumAll > 0) {
+            long percent = sumDone / sumAll;
+            LOG.debug(String.valueOf(percent));
+            return (int) (percent * 100);
+        }
+        return 100;
     }
 }
