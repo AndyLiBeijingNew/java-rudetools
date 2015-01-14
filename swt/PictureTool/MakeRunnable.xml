@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project PictureTool with Jar-in-Jar Loader">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="D:/toools/PictureTool/PictureTool.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="net.sf.rudetools.swt.tools.PicTool"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ org.eclipse.osgi_3.8.2.v20130124-134944.jar org.eclipse.core.commands_3.6.2.v20130123-162658.jar org.eclipse.equinox.common_3.6.100.v20120522-1841.jar org.eclipse.equinox.registry_3.5.200.v20120522-1841.jar org.eclipse.core.runtime_3.8.0.v20120912-155025.jar org.eclipse.text_3.5.200.v20120523-1310.jar org.eclipse.swt.win32.win32.x86_64_3.100.1.v4236b.jar org.eclipse.jface_3.8.102.v20130123-162658.jar org.eclipse.jface.text_3.8.2.v20121126-164145.jar org.eclipse.ui.workbench_3.104.0.v20130204-164612.jar com.ibm.icu_4.4.2.v20110823.jar org.eclipse.ui.forms_3.5.200.v20120705-114351.jar metadata-extractor-2.6.4.jar xmpcore.jar logback-classic-1.0.9.jar logback-core-1.0.9.jar slf4j-api-1.7.2.jar"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="D:/java/eclipse-rcp-juno-SR2-win32-x86_64/git/rudetools/swt/PictureTool/bin"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.osgi_3.8.2.v20130124-134944.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.core.commands_3.6.2.v20130123-162658.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.equinox.common_3.6.100.v20120522-1841.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.equinox.registry_3.5.200.v20120522-1841.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.core.runtime_3.8.0.v20120912-155025.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.text_3.5.200.v20120523-1310.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.swt.win32.win32.x86_64_3.100.1.v4236b.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.jface_3.8.102.v20130123-162658.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.jface.text_3.8.2.v20121126-164145.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.ui.workbench_3.104.0.v20130204-164612.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="com.ibm.icu_4.4.2.v20110823.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\eclipse\plugins" includes="org.eclipse.ui.forms_3.5.200.v20120705-114351.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\git\rudetools\swt\PictureTool\lib" includes="metadata-extractor-2.6.4.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\git\rudetools\swt\PictureTool\lib" includes="xmpcore.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\git\rudetools\swt\PictureTool\lib" includes="logback-classic-1.0.9.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\git\rudetools\swt\PictureTool\lib" includes="logback-core-1.0.9.jar"/>
+            <zipfileset dir="D:\java\eclipse-rcp-juno-SR2-win32-x86_64\git\rudetools\swt\PictureTool\lib" includes="slf4j-api-1.7.2.jar"/>
+        </jar>
+    </target>
+</project>

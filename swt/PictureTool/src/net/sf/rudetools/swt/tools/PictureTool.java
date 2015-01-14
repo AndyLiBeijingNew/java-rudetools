@@ -53,9 +53,9 @@ import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 
-public class PicTool extends ApplicationWindow {
+public class PictureTool extends ApplicationWindow {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PicTool.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PictureTool.class);
 
 	private Text textSrcDir;
 	private String sourceDirStr;
@@ -77,7 +77,7 @@ public class PicTool extends ApplicationWindow {
 	 */
 	@Override
 	public boolean close() {
-		if (MessageDialog.openConfirm(PicTool.this.getShell(), "Exit Confirm",
+		if (MessageDialog.openConfirm(PictureTool.this.getShell(), "Exit Confirm",
 				"Are you sure to Exit?")) {
 			super.close();
 		}
@@ -130,9 +130,9 @@ public class PicTool extends ApplicationWindow {
 	/**
 	 * Create the application window.
 	 */
-	public PicTool() {
+	public PictureTool() {
 		super(null);
-		setShellStyle(SWT.CLOSE | SWT.RESIZE);
+		// setShellStyle(SWT.CLOSE | SWT.RESIZE);
 		// createActions();
 		// addToolBar(SWT.FLAT | SWT.WRAP);
 		// addMenuBar();
@@ -235,6 +235,7 @@ public class PicTool extends ApplicationWindow {
 							setRefreshing(false);
 						} catch (InterruptedException e1) {
 							e1.printStackTrace();
+							LOG.debug(e1.getMessage());
 						}
 					}
 				} else {
@@ -301,7 +302,7 @@ public class PicTool extends ApplicationWindow {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				PicTool.this.close();
+				PictureTool.this.close();
 			}
 
 			@Override
@@ -454,6 +455,7 @@ public class PicTool extends ApplicationWindow {
 								Date date = getEXIFDate(sourceDir);
 							} catch (IOException e) {
 								e.printStackTrace();
+								LOG.warn("SINGLE FILE");
 							}
 							textLog.append(" S i n g l e   F i l e   !!!!!!");
 						}
@@ -499,6 +501,8 @@ public class PicTool extends ApplicationWindow {
 							}
 						});
 					} catch (InterruptedException e) {
+						e.printStackTrace();
+						LOG.debug(e.getMessage());
 					}
 				}
 			}
@@ -624,6 +628,8 @@ public class PicTool extends ApplicationWindow {
 				}
 			} catch (JpegProcessingException e) {
 				// ignore the jpeg file without JPEG information
+				// e.printStackTrace();
+				LOG.debug(e.getMessage());
 			}
 		}
 		return date;
@@ -669,12 +675,13 @@ public class PicTool extends ApplicationWindow {
 	 */
 	public static void main(String args[]) {
 		try {
-			PicTool window = new PicTool();
+			PictureTool window = new PictureTool();
 			window.setBlockOnOpen(true);
 			window.open();
 			Display.getCurrent().dispose();
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOG.debug(e.getMessage());
 		}
 	}
 
@@ -686,7 +693,7 @@ public class PicTool extends ApplicationWindow {
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText("JPG File Distributor");
+		newShell.setText("Jpeg File Distributor");
 	}
 
 	/**
@@ -726,8 +733,7 @@ public class PicTool extends ApplicationWindow {
 	 */
 	private void handleJpgFiles(File file) throws IOException {
 
-		if (file == null || targetDirStr == null
-				|| "Thumbs.db".equalsIgnoreCase(file.getName())) {
+		if (file == null || targetDirStr == null) {
 			return;
 		}
 
@@ -751,7 +757,7 @@ public class PicTool extends ApplicationWindow {
 
 				// step 1. create target folder
 				targetFolder = new File(targetDirStr + File.separator + dateStr);
-				
+
 				Integer fileNo = 1;
 				if (targetFolder.exists()) {
 					fileNo = fileExtCount.get(dateStr);
@@ -791,6 +797,9 @@ public class PicTool extends ApplicationWindow {
 		try {
 			FileInputStream fis = new FileInputStream(srcFile);
 			FileChannel fcin = fis.getChannel();
+			if (!destDir.exists()) {
+				destDir.mkdirs();
+			}
 			File newFile = new File(destDir, newFileName);
 			int duplicatedNo = 1;
 			while (newFile.exists()) {
