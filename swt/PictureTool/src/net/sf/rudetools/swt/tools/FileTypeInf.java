@@ -76,7 +76,13 @@ public class FileTypeInf {
         numDone.clear();
     }
 
+    public synchronized void clearDone() {
+        for (int i = 0; i < numDone.size(); i++) {
+            numDone.set(i, 0L);
+        }
+    }
+
     protected String format(long num) {
-        return String.format("%,9d", num);
+        return String.format("%,d", num);
     }
 }
