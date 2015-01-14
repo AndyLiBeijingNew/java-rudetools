@@ -111,9 +111,9 @@ public class FileTypeInf {
 
     public int getPercent() {
         if (sumAll > 0) {
-            long percent = sumDone / sumAll;
+            double percent = sumDone * 100.0 / sumAll;
             LOG.debug(String.valueOf(percent));
-            return (int) (percent * 100);
+            return (int) percent;
         }
         return 100;
     }

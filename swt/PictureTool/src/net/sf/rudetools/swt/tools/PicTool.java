@@ -69,7 +69,7 @@ public class PicTool extends ApplicationWindow {
     protected Thread workerThread;
     protected boolean isWorking = false;
     protected long sizeSum = 0;
-    
+
     /*
      * (non-Javadoc)
      * @see org.eclipse.jface.window.ApplicationWindow#close()
@@ -98,11 +98,11 @@ public class PicTool extends ApplicationWindow {
     }
 
     protected Thread refreshThread;
-    protected int refreshInterval = 1;
+    protected int refreshInterval = 3;
     protected boolean isRefreshing = true;
 
     protected synchronized int getRefreshInterval() {
-        return refreshInterval;
+        return 3;
     }
 
     protected synchronized void setRefreshInterval(int refreshInterval) {
@@ -676,14 +676,14 @@ public class PicTool extends ApplicationWindow {
         LOG.info("Source File:\t{}", srcFile.getAbsolutePath());
         LOG.info("\n         ->:\t{}\\\\{}", destDir.getAbsolutePath(), newFileName);
         LOG.info("\n size:\t{}", srcFile.length());
-        
+
         Display.getDefault().asyncExec(new Runnable() {
 
             @Override
             public void run() {
                 textLog.setText("Source File:\t" + srcFile.getAbsolutePath());
                 textLog.append("\n         ->:\t" + destDir.getAbsolutePath() + "\\\\" + newFileName);
-                textLog.append("\n       size:\t " + String.format("%,d K", (int)(srcFile.length() / 1024)));
+                textLog.append("\n       size:\t " + String.format("%,d K", (int) (srcFile.length() / 1024)));
             }
         });
     }
@@ -721,14 +721,17 @@ public class PicTool extends ApplicationWindow {
                 // step 1. create target folder
                 targetFolder = new File(targetDirStr + File.separator + dateStr);
                 int fileNo = 1;
-                if (targetFolder.exists()) {
-                    fileNo = fileExtCount.get(dateStr);
-                } else {
-                    // fileNo = 1;
-                    targetFolder.mkdir();
-                }
-                fileExtCount.put(dateStr, fileNo + 1);
+                synchronized (fileExtCount) {
 
+                    if (targetFolder.exists()) {
+                        fileNo = fileExtCount.get(dateStr);
+                    } else {
+                        // fileNo = 1;
+                        targetFolder.mkdir();
+                    }
+                    fileExtCount.put(dateStr, fileNo + 1);
+                }
+                
                 // step 2. get the new file name
                 String extNo = String.format("%03d", fileNo);
                 targetFileName = dateTimeStr + "." + extNo + ".jpg";
