@@ -55,7 +55,8 @@ import com.drew.metadata.exif.ExifSubIFDDirectory;
 
 public class PictureTool extends ApplicationWindow {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PictureTool.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(PictureTool.class);
 
 	private Text textSrcDir;
 	private String sourceDirStr;
@@ -70,54 +71,9 @@ public class PictureTool extends ApplicationWindow {
 	protected boolean isWorking = false;
 	protected long sizeSum = 0;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.window.ApplicationWindow#close()
-	 */
-	@Override
-	public boolean close() {
-		if (MessageDialog.openConfirm(PictureTool.this.getShell(), "Exit Confirm",
-				"Are you sure to Exit?")) {
-			super.close();
-		}
-		return false;
-	}
-
-	/**
-	 * @return the isWorking
-	 */
-	protected synchronized boolean isWorking() {
-		return isWorking;
-	}
-
-	/**
-	 * @param isWorking
-	 *            the isWorking to set
-	 */
-	protected synchronized void setWorking(boolean isWorking) {
-		this.isWorking = isWorking;
-	}
-
 	protected Thread refreshThread;
 	protected int refreshInterval = 3;
 	protected boolean isRefreshing = true;
-
-	protected synchronized int getRefreshInterval() {
-		return 3;
-	}
-
-	protected synchronized void setRefreshInterval(int refreshInterval) {
-		this.refreshInterval = refreshInterval;
-	}
-
-	protected synchronized boolean isRefreshing() {
-		return isRefreshing;
-	}
-
-	protected synchronized void setRefreshing(boolean isRefreshing) {
-		this.isRefreshing = isRefreshing;
-	}
 
 	protected List<FileTypeInf> listData = new ArrayList<>();
 	protected FileTypeInf fileCount = new FileTypeInf(" File ");
@@ -137,6 +93,35 @@ public class PictureTool extends ApplicationWindow {
 		// addToolBar(SWT.FLAT | SWT.WRAP);
 		// addMenuBar();
 		addStatusLine();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.window.ApplicationWindow#close()
+	 */
+	@Override
+	public boolean close() {
+		if (MessageDialog.openConfirm(PictureTool.this.getShell(),
+				"Exit Confirm", "Are you sure to Exit?")) {
+			super.close();
+		}
+		return false;
+	}
+
+	/**
+	 * @return the isWorking
+	 */
+	protected synchronized boolean isWorking() {
+		return isWorking;
+	}
+
+	/**
+	 * @param isWorking
+	 *            the isWorking to set
+	 */
+	protected synchronized void setWorking(boolean isWorking) {
+		this.isWorking = isWorking;
 	}
 
 	/**
@@ -212,6 +197,22 @@ public class PictureTool extends ApplicationWindow {
 		createDndSupportForTarget();
 
 		return parent;
+	}
+
+	protected synchronized int getRefreshInterval() {
+		return 3;
+	}
+
+	protected synchronized void setRefreshInterval(int refreshInterval) {
+		this.refreshInterval = refreshInterval;
+	}
+
+	protected synchronized boolean isRefreshing() {
+		return isRefreshing;
+	}
+
+	protected synchronized void setRefreshing(boolean isRefreshing) {
+		this.isRefreshing = isRefreshing;
 	}
 
 	private void createActions(Composite parent) {
@@ -803,6 +804,7 @@ public class PictureTool extends ApplicationWindow {
 			File newFile = new File(destDir, newFileName);
 			int duplicatedNo = 1;
 			while (newFile.exists()) {
+				LOG.error("while (newFile.exists() -> {}", newFileName);
 				String extNo = "Copy (" + duplicatedNo + ")";
 				String dupName = newFileName.replace(".jpg", extNo + ".jpg");
 				duplicatedNo++;
