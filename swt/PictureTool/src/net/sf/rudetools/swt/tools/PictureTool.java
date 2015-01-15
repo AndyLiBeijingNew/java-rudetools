@@ -454,11 +454,12 @@ public class PictureTool extends ApplicationWindow {
 						if (sourceDir.isFile()) {
 							try {
 								Date date = getEXIFDate(sourceDir);
+								textLog.append(" S i n g l e   F i l e   !!!!!!");
+								textLog.append(" EXIFDate: " + date);
 							} catch (IOException e) {
 								e.printStackTrace();
 								LOG.warn("SINGLE FILE");
 							}
-							textLog.append(" S i n g l e   F i l e   !!!!!!");
 						}
 					}
 				}
@@ -499,6 +500,8 @@ public class PictureTool extends ApplicationWindow {
 							public void run() {
 								viewer.refresh();
 								progressBar.setSelection(sizeCount.getPercent());
+								progressBar.setToolTipText(sizeCount
+										.getPercentText());
 							}
 						});
 					} catch (InterruptedException e) {
@@ -573,15 +576,9 @@ public class PictureTool extends ApplicationWindow {
 						String filename = fileNames[0];
 						File file = new File(filename);
 						if (file != null && file.isDirectory()) {
-							File targetFile = new File(file.getAbsolutePath()
-									+ File.separator
-									+ System.currentTimeMillis());
-							if (targetFile.mkdir()) {
-								targetDirStr = targetFile.getAbsolutePath();
-								textTgtDir.setText(targetDirStr);
-
-								initFileInfDone();
-							}
+							targetDirStr = file.getAbsolutePath();
+							textTgtDir.setText(targetDirStr);
+							initFileInfDone();
 						}
 					}
 				}
@@ -707,10 +704,10 @@ public class PictureTool extends ApplicationWindow {
 
 	private void printWorkingFile(final File srcFile, final File destDir,
 			final String newFileName) {
-		LOG.info("Source File:\t{}", srcFile.getAbsolutePath());
-		LOG.info("\n         ->:\t{}\\\\{}", destDir.getAbsolutePath(),
-				newFileName);
-		LOG.info("\n size:\t{}", srcFile.length());
+		// LOG.info("Source File:\t{}", srcFile.getAbsolutePath());
+		// LOG.info("\n         ->:\t{}\\\\{}", destDir.getAbsolutePath(),
+		// newFileName);
+		// LOG.info("\n size:\t{}", srcFile.length());
 
 		Display.getDefault().asyncExec(new Runnable() {
 
@@ -796,21 +793,35 @@ public class PictureTool extends ApplicationWindow {
 		boolean isDone = false;
 		printWorkingFile(srcFile, destDir, newFileName);
 		try {
-			FileInputStream fis = new FileInputStream(srcFile);
-			FileChannel fcin = fis.getChannel();
+
 			if (!destDir.exists()) {
 				destDir.mkdirs();
 			}
 			File newFile = new File(destDir, newFileName);
 			int duplicatedNo = 1;
+			String copyPart = "";
+			// if the target file exists,
 			while (newFile.exists()) {
-				LOG.error("while (newFile.exists() -> {}", newFileName);
-				String extNo = "Copy (" + duplicatedNo + ")";
-				String dupName = newFileName.replace(".jpg", extNo + ".jpg");
+				if (newFile.length() == srcFile.length()) {
+					// hope they are same file
+					LOG.warn("Same File Found !!!", newFileName);
+					return true;
+				}
+				int lastDot = newFileName.lastIndexOf(".");
+				String endPart = newFileName.substring(lastDot + 1);
+				String frontPart = "";
+				if (lastDot >= 0) {
+					frontPart = newFileName.substring(0, lastDot);
+				}
+				copyPart = "." + String.format("%03d", duplicatedNo) + ".";
 				duplicatedNo++;
-				newFile = new File(destDir, dupName);
+				String rename = frontPart + copyPart + endPart;
+				newFile = new File(destDir, rename);
+				LOG.warn("Rename from {} -> {}", newFileName, rename);
 			}
 
+			FileInputStream fis = new FileInputStream(srcFile);
+			FileChannel fcin = fis.getChannel();
 			FileOutputStream fos = new FileOutputStream(newFile);
 			FileChannel fcout = fos.getChannel();
 			fcin.transferTo(0, fcin.size(), fcout);

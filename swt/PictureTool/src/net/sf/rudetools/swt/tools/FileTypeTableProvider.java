@@ -17,7 +17,7 @@ public class FileTypeTableProvider extends LabelProvider implements ITableLabelP
     @Override
     public Object[] getElements(Object inputElement) {
         if (inputElement instanceof List<?>) {
-            List<FileTypeInf> items = (List<FileTypeInf>) inputElement;
+            List<?> items = (List<?>) inputElement;
             return items.toArray();
         }
         return null;

@@ -9,8 +9,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.icu.math.BigDecimal;
-
 public class FileTypeInf {
 
 	private static final Logger LOG = LoggerFactory
@@ -135,5 +133,9 @@ public class FileTypeInf {
 			}
 		}
 		return 100;
+	}
+
+	public String getPercentText() {
+		return getPercent() + " %  " + format(sumDone) + " / " + format(sumAll);
 	}
 }
