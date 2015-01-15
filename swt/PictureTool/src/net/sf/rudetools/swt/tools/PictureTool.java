@@ -738,8 +738,11 @@ public class PictureTool extends ApplicationWindow {
 		// Deep first loop
 		if (file.isDirectory()) {
 			LOG.info("\nDir:\t{}\n", file.getAbsolutePath());
-			for (File subFile : file.listFiles()) {
-				handleJpgFiles(subFile);
+			File[] files = file.listFiles();
+			if (files != null) {
+				for (File subFile : files) {
+					handleJpgFiles(subFile);
+				}
 			}
 		} else
 
@@ -846,8 +849,11 @@ public class PictureTool extends ApplicationWindow {
 			// do the real things
 			addCountFile(file);
 		} else if (file.isDirectory()) {
-			for (File subFile : file.listFiles()) {
-				getFolderInf(subFile);
+			File[] files = file.listFiles();
+			if (files != null) {
+				for (File subFile : files) {
+					getFolderInf(subFile);
+				}
 			}
 		}
 	}
