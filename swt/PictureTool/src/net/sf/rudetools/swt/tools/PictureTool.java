@@ -79,7 +79,7 @@ public class PictureTool extends ApplicationWindow {
 	protected FileTypeInf fileCount = new FileTypeInf(" File ");
 	protected FileTypeInf sizeCount = new FileTypeInf(" Size ");
 
-	private Map<String, Integer> fileExtCount;;
+	// private Map<String, Integer> fileExtCount;;
 
 	private TableViewer viewer;
 
@@ -256,7 +256,8 @@ public class PictureTool extends ApplicationWindow {
 								public void run() {
 									File file = new File(sourceDirStr);
 									try {
-										fileExtCount = new HashMap<String, Integer>();
+										// fileExtCount = new HashMap<String,
+										// Integer>();
 										updateFileInfTable();
 										handleJpgFiles(file);
 										LOG.info("Completed Job !!!");
@@ -627,7 +628,7 @@ public class PictureTool extends ApplicationWindow {
 			} catch (JpegProcessingException e) {
 				// ignore the jpeg file without JPEG information
 				// e.printStackTrace();
-				LOG.debug(e.getMessage());
+				// LOG.debug(e.getMessage());
 			}
 		}
 		return date;
@@ -715,7 +716,7 @@ public class PictureTool extends ApplicationWindow {
 			public void run() {
 				textLog.setText("Source File:\t" + srcFile.getAbsolutePath());
 				textLog.append("\n         ->:\t" + destDir.getAbsolutePath()
-						+ "\\\\" + newFileName);
+						+ "\\" + newFileName);
 				textLog.append("\n       size:\t "
 						+ String.format("%,d K",
 								(int) (srcFile.length() / 1024)));
@@ -737,7 +738,7 @@ public class PictureTool extends ApplicationWindow {
 
 		// Deep first loop
 		if (file.isDirectory()) {
-			LOG.info("\nDir:\t{}\n", file.getAbsolutePath());
+			LOG.info("Dir:\t{}", file.getAbsolutePath());
 			File[] files = file.listFiles();
 			if (files != null) {
 				for (File subFile : files) {
@@ -759,21 +760,22 @@ public class PictureTool extends ApplicationWindow {
 				// step 1. create target folder
 				targetFolder = new File(targetDirStr + File.separator + dateStr);
 
-				Integer fileNo = 1;
-				if (targetFolder.exists()) {
-					fileNo = fileExtCount.get(dateStr);
-					if (fileNo == null) {
-						fileNo = 1;
-					}
-				} else {
+				// Integer fileNo = 1;
+				if (!targetFolder.exists()) {
+					// fileNo = fileExtCount.get(dateStr);
+					// if (fileNo == null) {
 					// fileNo = 1;
+					// }
+					// } else {
+					// // fileNo = 1;
 					targetFolder.mkdir();
 				}
-				fileExtCount.put(dateStr, fileNo + 1);
+				// fileExtCount.put(dateStr, fileNo + 1);
 
 				// step 2. get the new file name
-				String extNo = String.format("%03d", fileNo);
-				targetFileName = dateTimeStr + "." + extNo + ".jpg";
+				// String extNo = String.format("%03d", fileNo);
+				// targetFileName = dateTimeStr + "." + extNo + ".jpg";
+				targetFileName = dateTimeStr + ".jpg";
 			} else {
 				// handle unknown pictures or mov files
 				targetFileName = file.getName();
@@ -807,7 +809,6 @@ public class PictureTool extends ApplicationWindow {
 			while (newFile.exists()) {
 				if (newFile.length() == srcFile.length()) {
 					// hope they are same file
-					LOG.warn("Same File Found !!!", newFileName);
 					return true;
 				}
 				int lastDot = newFileName.lastIndexOf(".");
@@ -820,9 +821,11 @@ public class PictureTool extends ApplicationWindow {
 				duplicatedNo++;
 				String rename = frontPart + copyPart + endPart;
 				newFile = new File(destDir, rename);
-				LOG.warn("Rename from {} -> {}", newFileName, rename);
 			}
 
+			if (copyPart.length() > 0) {
+				LOG.warn("Rename from {} -> {}", newFileName, newFile.getName());
+			}
 			FileInputStream fis = new FileInputStream(srcFile);
 			FileChannel fcin = fis.getChannel();
 			FileOutputStream fos = new FileOutputStream(newFile);
@@ -833,6 +836,7 @@ public class PictureTool extends ApplicationWindow {
 			fcout.close();
 			fos.close();
 			isDone = true;
+			LOG.warn("XXXXXXXXXXXXXXXXXXXX  real copy ....");
 		} catch (IOException e) {
 			e.printStackTrace();
 			LOG.error("Copy file Error:\t{}", e.getMessage());
