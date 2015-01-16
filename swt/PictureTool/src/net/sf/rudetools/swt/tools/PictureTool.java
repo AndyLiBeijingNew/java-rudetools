@@ -889,7 +889,7 @@ public class PictureTool extends ApplicationWindow {
 	}
 
 	public static String getDateTimeStr(Date date) {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh.mm.ss");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
 		return df.format(date);
 	}
 
